@@ -10,13 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_07_112409) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_09_053341) do
   create_table "items", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "will_purchase_date"
+    t.string "url"
   end
 
 end

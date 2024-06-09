@@ -1,0 +1,75 @@
+<%= form_with(model: item) do |form| %>
+  <% if item.errors.any? %>
+    <div id="errorModal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              <% item.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <% if item.persisted? %>
+      <h2>アイテム更新</h2>
+    <% else %>
+      <h2>新規アイテム登録</h2>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :アイテムの名称, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :アイテムの説明と購入理由, class: "form-label" %>
+    <%= form.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :価格, class: "form-label" %>
+    <%= form.text_field :price, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :購入予定日, class: "form-label" %>
+    <%= form.date_field :will_purchase_date, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :商品URL, class: "form-label" %>
+    <%= form.text_field :url, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <% if item.persisted? %>
+      <%= form.submit '更新', class: "btn btn-primary", data: {turbo: false} %>
+    <% else %>
+      <%= form.submit '作成', class: "btn btn-primary", data: {turbo: false} %>
+    <% end %>
+  </div>
+<% end %>
+
+<% if item.errors.any? %>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      $('#errorModal').modal('show');
+    });
+  </script>
+<% end %>
