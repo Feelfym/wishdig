@@ -7,7 +7,11 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
+    if user_signed_in? && current_user.id == Item.find(params[:id]).user_id
+      @item = Item.find(params[:id])
+    else
+      redirect_to root_path
+    end
   end
 
   def new
@@ -27,14 +31,14 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    @item = Item.find(params[:id])
+    set_item
   end
 
   def completepost
   end
 
   def update
-    @item = Item.find(params[:id])
+    set_item
     if @item.update(item_params)
       redirect_to root_path
     else
@@ -43,7 +47,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    @item = Item.find(params[:id])
+    set_item
     @item.destroy
     redirect_to item_path
   end
@@ -58,5 +62,7 @@ class ItemsController < ApplicationController
     redirect_to new_user_session_path unless user_signed_in?
   end
 
-
+  def set_item
+    @item = Item.find(params[:id])
+  end
 end
