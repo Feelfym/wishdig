@@ -2,7 +2,7 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-document.addEventListener("DOMContentLoaded", function() {
+function initializeRowClickEvents() {
   const rows = document.querySelectorAll("tr[data-link]");
 
   rows.forEach(row => {
@@ -13,4 +13,14 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });
   });
+}
+
+// 初回ロード時
+document.addEventListener("DOMContentLoaded", function() {
+  initializeRowClickEvents();
+});
+
+// Turbo Driveによるロード時
+document.addEventListener("turbo:load", function() {
+  initializeRowClickEvents();
 });
