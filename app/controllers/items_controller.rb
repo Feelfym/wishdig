@@ -1,7 +1,9 @@
 class ItemsController < ApplicationController
+  before_action :move_to_index
 
   def index
-    @items = Item.all
+    @items = current_user.items
+    @user = current_user
   end
 
   def show
@@ -49,7 +51,12 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:name, :description, :price, :will_purchase_date, :url)
+    params.require(:item).permit(:name, :description, :price, :will_purchase_date, :url).merge(user_id: current_user.id)
   end
+
+  def move_to_index
+    redirect_to new_user_session_path unless user_signed_in?
+  end
+
 
 end

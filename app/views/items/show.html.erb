@@ -10,6 +10,7 @@
       <% if @item.url != "" %>
         <p class="card-text">URL: <%= link_to @item.url, @item.url, target: "_blank" %></p>
       <% end %>
+      <p clsdd="card-text">ユーザー名: <%= @item.user.name %></p>
       <%= link_to "編集", edit_item_path(@item), class: "btn btn-primary" %>
       <%= link_to "もどる", items_path, class: "btn btn-secondary" %>
     </div>
