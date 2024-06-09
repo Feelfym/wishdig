@@ -1,0 +1,15 @@
+<h1>Item Details</h1>
+
+<div class="container mt-4" style="max-width: 600px;">
+  <div class="card">
+    <div class="card-header">
+      <h2><%= @item.name %></h2>
+    </div>
+    <div class="card-body">
+      <p class="card-text"><%= @item.description %></p>
+      <p class="card-text">Price: <%= @item.price %></p>
+      <%= link_to "Edit", edit_item_path(@item), class: "btn btn-warning" %>
+      <%= link_to "Back", items_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
+</div>
