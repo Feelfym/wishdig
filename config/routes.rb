@@ -7,5 +7,11 @@ Rails.application.routes.draw do
   root to: "items#index"
   resources :items do
     resources :memos, only: [:create, :destroy]
+    collection do
+      get :purchased
+    end
+    member do
+      patch :purchase
+    end
   end
 end

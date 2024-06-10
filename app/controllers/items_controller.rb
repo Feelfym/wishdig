@@ -2,7 +2,8 @@ class ItemsController < ApplicationController
   before_action :move_to_index
 
   def index
-    @items = current_user.items
+    items = current_user.items
+    @items = items.where(purchased_flag: false)
     @user = current_user
   end
 
@@ -36,9 +37,6 @@ class ItemsController < ApplicationController
     set_item
   end
 
-  def completepost
-  end
-
   def update
     set_item
     if @item.update(item_params)
@@ -54,10 +52,21 @@ class ItemsController < ApplicationController
     redirect_to item_path
   end
 
+  def purchase
+    set_item
+    @item.update(purchased_flag: true)
+    redirect_to items_path
+  end
+
+  def purchased
+    @items = Item.where(purchased_flag: true)
+    @user = current_user
+  end
+
   private
 
   def item_params
-    params.require(:item).permit(:name, :description, :price, :will_purchase_date, :url).merge(user_id: current_user.id)
+    params.require(:item).permit(:name, :description, :price, :will_purchase_date, :url, :purchased_flag).merge(user_id: current_user.id)
   end
 
   def move_to_index

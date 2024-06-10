@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_10_094228) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_10_104539) do
   create_table "items", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -20,6 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_10_094228) do
     t.date "will_purchase_date"
     t.string "url"
     t.integer "user_id"
+    t.boolean "purchased_flag", default: false
   end
 
   create_table "memos", charset: "utf8mb4", force: :cascade do |t|
