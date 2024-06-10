@@ -7,6 +7,8 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @memo = Memo.new
+    @memos = Memo.where(item_id: params[:id]).order("created_at DESC")
     if user_signed_in? && current_user.id == Item.find(params[:id]).user_id
       @item = Item.find(params[:id])
     else

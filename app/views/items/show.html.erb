@@ -1,18 +1,50 @@
 <div class="container mt-4" style="max-width: 600px;">
-  <div class="card">
+  <div class="card mb-5">
     <div class="card-header">
       <h2><%= @item.name %></h2>
     </div>
     <div class="card-body">
       <p class="card-text">説明：<%= @item.description %></p>
-      <p class="card-text">価格: <%= @item.price %></p>
+      <p class="card-text">価格: <%= formatted_price(@item.price) %></p>
       <p class="card-text">購入予定日: <%= @item.will_purchase_date %></p>
       <% if @item.url != "" %>
-        <p class="card-text">URL: <%= link_to @item.url, @item.url, target: "_blank" %></p>
+        <%= link_to "商品ページ", @item.url, target: "_blank", class: "btn btn-info item-link" %>
       <% end %>
-      <p clsdd="card-text">ユーザー名: <%= @item.user.name %></p>
       <%= link_to "編集", edit_item_path(@item), class: "btn btn-primary" %>
       <%= link_to "もどる", items_path, class: "btn btn-secondary" %>
     </div>
   </div>
 </div>
+
+<div class="container mt-4" style="max-width: 600px;">
+  <%= form_with(model: @memo, url: item_memos_path(@item), class: "mb-5") do |form| %>
+    <%= form.text_area :content, class: "form-control", placeholder: "メモを入力" %>
+    <%= form.submit "メモを追加", class: "btn btn-primary m-3" %>
+  <% end %>
+</div>
+<div class="container mt-4" style="max-width: 600px;">
+  <% @memos.each do |memo| %>
+    <div class="card mb-3 position-relative">
+      <div class="card-body">
+        <%= form_with(model: memo, url: item_memo_path(@item, memo), method: :delete, class: "delete-form") do |form| %>
+          <%= form.submit "×", class: "btn btn-lg delete-button" %>
+        <% end %>
+        <p class="card-text"><%= memo.content %></p>
+        <p class="card-text"><%= memo.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<style>
+  .delete-form {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  .delete-button {
+    padding: 0 5px;
+    border-radius: 50%;
+  }
+</style>

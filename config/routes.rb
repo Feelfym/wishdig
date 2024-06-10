@@ -5,5 +5,7 @@ Rails.application.routes.draw do
   end
 
   root to: "items#index"
-  resources :items
+  resources :items do
+    resources :memos, only: [:create, :destroy]
+  end
 end
