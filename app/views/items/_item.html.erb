@@ -1,7 +1,11 @@
 <tr data-link="<%= item_path(item) %>">
   <td><%= item.name %></td>
   <td>¥<%= number_with_delimiter(item.price) %></td>
-  <td><%= item.will_purchase_date %></td>
+  <% if item.purchased_flag? %>
+    <td><%= item.purchased_date %></td>
+  <% else %>
+    <td><%= item.will_purchase_date %></td>
+  <% end %>
   <% if item.url.present? %>
     <td><%= link_to "商品ページ", item.url, target: "_blank", class: "btn btn-info btn-sm item-link" %></td>
   <% else %>

@@ -54,7 +54,7 @@ class ItemsController < ApplicationController
 
   def purchase
     set_item
-    @item.update(purchased_flag: true)
+    @item.update(purchased_flag: true, purchased_date: Time.now)
     redirect_to items_path
   end
 
@@ -66,7 +66,7 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:name, :description, :price, :will_purchase_date, :url, :purchased_flag).merge(user_id: current_user.id)
+    params.require(:item).permit(:name, :description, :price, :will_purchase_date, :url, :purchased_flag, :purchased_date).merge(user_id: current_user.id)
   end
 
   def move_to_index
