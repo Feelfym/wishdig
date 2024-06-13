@@ -1,4 +1,9 @@
 class Item < ApplicationRecord
+  scope :not_purchased, -> { where(purchased_flag: false) }
+  scope :for_year_and_month, -> (year, month) {
+    where('extract(year from will_purchase_date) = ? AND extract(month from will_purchase_date) = ?', year, month)
+  }
+  
   validates :name, presence: true
   validates :description, presence: true
   validates :price, presence: true, numericality: { greater_than: 0, less_than: 100_000_001}

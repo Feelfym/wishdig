@@ -1,10 +1,22 @@
 class ItemsController < ApplicationController
   before_action :move_to_index
+  before_action :set_selected_year_and_month
 
   def index
-    items = current_user.items
-    @items = items.where(purchased_flag: false)
     @user = current_user
+    @items = @user.items.not_purchased
+
+    @is_filtered = @selected_year.present? && @selected_month.present?
+    if @is_filtered
+      @items = @items.for_year_and_month(@selected_year, @selected_month)
+    end
+
+    @total = @items.sum(:price)
+  end
+
+  def clear_selected_year_and_month
+    @selected_year = nil
+    @selected_month = nil
   end
 
   def show
@@ -75,5 +87,19 @@ class ItemsController < ApplicationController
 
   def set_item
     @item = Item.find(params[:id])
+  end
+
+  def set_selected_year_and_month
+    if params[:year].present?
+      @selected_year = params[:year].to_i
+    else
+      @selected_year = nil
+    end
+
+    if params[:month].present?
+      @selected_month = params[:month].to_i
+    else
+      @selected_month = nil
+    end
   end
 end

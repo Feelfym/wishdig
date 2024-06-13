@@ -1,4 +1,4 @@
-<div class="container mt-4" style="max-width: 600px;">
+<div class="container mt-4" style="max-width: 800px;">
   <div class="card mb-5">
     <div class="card-header">
       <h2><%= @item.name %></h2>
@@ -16,20 +16,22 @@
   </div>
 </div>
 
-<div class="container mt-4" style="max-width: 600px;">
+<div class="container mt-4" style="max-width: 800px;">
   <%= form_with(model: @memo, url: item_memos_path(@item), class: "mb-5") do |form| %>
+    <%= form.collection_select(:title_id, Title.all, :id, :name, {}, {class:"btn btn-sm border border-secondary-subtle dropdown-toggle title_id-select mb-3"}) %>
     <%= form.text_area :content, class: "form-control", placeholder: "メモを入力" %>
     <%= form.submit "メモを追加", class: "btn btn-primary m-3" %>
   <% end %>
 </div>
-<div class="container mt-4" style="max-width: 600px;">
+<div class="container mt-4" style="max-width: 800px;">
   <% @memos.each do |memo| %>
     <div class="card mb-3 position-relative">
-      <div class="card-body">
+      <div class="card-body p-4 pr-5">
         <%= form_with(model: memo, url: item_memo_path(@item, memo), method: :delete, class: "delete-form") do |form| %>
           <%= form.submit "×", class: "btn btn-lg delete-button" %>
         <% end %>
-        <p class="card-text"><%= memo.content %></p>
+        <h5 class="card-title"><%= memo.title.name %></h5>
+        <p class="card-text"><%= simple_format(memo.content) %></p>
         <p class="card-text"><%= memo.created_at.strftime("%Y-%m-%d %H:%M") %></p>
       </div>
     </div>

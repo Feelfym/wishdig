@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_10_111616) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_13_110855) do
   create_table "items", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -30,6 +30,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_10_111616) do
     t.integer "item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "title_id"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|

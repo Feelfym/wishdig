@@ -2,19 +2,30 @@
 
   <% if user_signed_in? %>
     <div class="row m-2 mt-5">
-      <% if @items.present? %>
-        <div class="mr-2">
-          <h2><%= @user.name %>さんのほしいものリスト</h2>
-        </div>
-        <div class="ml-5 mr-2">
-          <h2><%= item_count(@items) %> / </h2>
-        </div>
-        <div>
-          <h2><%= total_price(@items) %></h2>
-        </div>
-      <% else %>
-        <div class="mr-2">
-          <h2><%= @user.name %>さんのほしいものリストはまだ空です。</h2>
+      <h3><%= display_heading %></h3>
+    </div>
+
+   <div class="mt-4">
+      <%= form_with url: items_path, method: :get, local: true do %>
+        <div class="form-wrapper d-flex align-items-center">
+          <div class="form-group mr-4">
+            <label for="year">年を選択:</label>
+            <select name="year" id="year" class="form-control" onchange="this.form.submit()">
+              <option value="">-- 選択してください --</option>
+              <% (2024..Date.today.year+3).each do |year| %>
+                <option value="<%= year %>" <%= 'selected' if year == @selected_year %>><%= year %>年</option>
+              <% end %>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="month">月を選択:</label>
+            <select name="month" id="month" class="form-control" onchange="this.form.submit()">
+              <option value="">-- 選択してください --</option>
+              <% (1..12).each do |month| %>
+                <option value="<%= month %>" <%= 'selected' if month == @selected_month %>><%= month %>月</option>
+              <% end %>
+            </select>
+          </div>
         </div>
       <% end %>
     </div>
