@@ -14,4 +14,9 @@ Rails.application.routes.draw do
       patch :purchase
     end
   end
+
+  resources :comparisons, only: [:show, :new, :create, :index, :destroy] do
+    resources :notes, only: [:create, :destroy]
+  end
+
 end

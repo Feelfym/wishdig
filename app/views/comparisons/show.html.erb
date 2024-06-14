@@ -1,0 +1,30 @@
+<div class="container mt-4" style="max-width: 1000px;">
+  <h2 class="my-4">比較する</h2>
+  <table class="table table-bordered" style="max-width: 80%;">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">属性</th>
+        <th scope="col"><%= @comparison.primary_item.name %></th>
+        <th scope="col"><%= @comparison.secondary_item.name %></th>
+        <th scope="col">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @comparison.notes.each do |note| %>
+        <% if note.attribute_name.present? %>
+          <tr>
+            <td><%= note.attribute_name %></td>
+            <td><%= note.primary_value %></td>
+            <td><%= note.secondary_value %></td>
+            <td>
+              <% if note.persisted? %>
+                <%= link_to "削除", comparison_note_path(@comparison, note), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "btn btn-danger btn-sm item-link" %>
+              <% end %>          
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+      <%= render 'notes/form', comparison: @comparison, note: @note %>
+    </tbody>
+  </table>
+</div>

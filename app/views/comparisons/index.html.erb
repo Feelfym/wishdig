@@ -1,0 +1,25 @@
+<div class="container mt-4" style="max-width: 1000px;">
+  <h1 class="my-4">すべての比較</h1>
+
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">アイテム1</th>
+        <th scope="col">アイテム2</th>
+        <th scope="col">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @comparisons.each do |comparison| %>
+        <tr>
+          <td><%= comparison.primary_item.name %></td>
+          <td><%= comparison.secondary_item.name %></td>
+          <td>
+            <%= link_to '表示', comparison_path(comparison), class: 'btn btn-sm btn-primary mr-2' %>
+            <%= link_to '削除', comparison_path(comparison), data: {turbo_method: :delete, turbo_confirm: "削除しますか？"}, class: "btn btn-danger btn-sm item-link" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

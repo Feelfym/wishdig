@@ -1,0 +1,27 @@
+<div class="container mt-4" style="max-width: 1000px;">
+  <h2 class="mb-3">新しい比較を作成</h2>
+
+    <% if @comparison.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@comparison.errors.count, "error") %> prohibited this comparison from being saved:</h2>
+        <ul>
+          <% @comparison.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <div class="col d-flex">
+    <%= form_with model: @comparison do |form| %>
+      <div>
+        <%= form.label :primary_item_id, '1つめのアイテム' %>
+        <%= form.collection_select(:primary_item_id, Item.all, :id, :name, {}, {class:"btn btn-sm border border-secondary-subtle dropdown-toggle mb-3"}) %>
+      </div>
+      <div>
+        <%= form.label :secondary_item_id, '2つめのアイテム' %>
+        <%= form.collection_select(:secondary_item_id, Item.all, :id, :name, {}, {class:"btn btn-sm border border-secondary-subtle dropdown-toggle mb-3"}) %>
+      </div>
+      <%= form.submit '作成', data: {turbo: false}, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

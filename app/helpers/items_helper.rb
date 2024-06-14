@@ -11,19 +11,53 @@ module ItemsHelper
     "¥#{number_with_delimiter(items.sum(:price))}"
   end
 
-  def display_heading
+  def display_heading(list_name)
     if @is_filtered
       if @items.present?
-        "#{@selected_year}年#{@selected_month}月の購入予定アイテム: #{formatted_price(@total)}"
+        "#{@selected_year}年#{@selected_month}月の#{list_name}: #{formatted_price(@total)}"
       else
-        "#{@selected_year}年#{@selected_month}月の購入予定アイテムはありません。"
+        "#{@selected_year}年#{@selected_month}月の#{list_name}はありません。"
       end
     else
       if @items.present?
-        "購入予定アイテムの総額 (全期間): #{formatted_price(@total)}"
+        "#{list_name}の総額 (全期間): #{formatted_price(@total)}"
       else
-        "#{@user.name}さんのほしいものリストはまだ空です。"
+        "#{@user.name}さんの#{list_name}はまだ空です。"
       end
     end
-  end  
+  end
+
+  def items_table(items, current_user, table_name)
+    return unless items.present?
+
+    if table_name == '購入済み'
+      column_name = '購入日'
+    elsif table_name == 'ほしいもの'
+      column_name = '購入予定日'
+    else
+      column_name = '日付'
+    end
+
+    content_tag :table, class: 'table table-hover mt-5' do
+      concat(
+        content_tag(:thead, class: 'thead-dark') do
+          content_tag(:tr) do
+            concat content_tag(:th, 'アイテム名')
+            concat content_tag(:th, '価格')
+            concat content_tag(:th, column_name)
+            concat content_tag(:th, 'URL')
+            concat content_tag(:th, '操作')
+          end
+        end
+      )
+      concat(
+        content_tag(:tbody) do
+          items.each do |item|
+            concat(render partial: 'item', locals: { item: item }) if item.user_id == current_user.id
+          end
+        end
+      )
+    end
+  end
+
 end

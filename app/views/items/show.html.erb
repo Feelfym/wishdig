@@ -25,16 +25,7 @@
 </div>
 <div class="container mt-4" style="max-width: 800px;">
   <% @memos.each do |memo| %>
-    <div class="card mb-3 position-relative">
-      <div class="card-body p-4 pr-5">
-        <%= form_with(model: memo, url: item_memo_path(@item, memo), method: :delete, class: "delete-form") do |form| %>
-          <%= form.submit "×", class: "btn btn-lg delete-button" %>
-        <% end %>
-        <h5 class="card-title"><%= memo.title.name %></h5>
-        <p class="card-text"><%= simple_format(memo.content) %></p>
-        <p class="card-text"><%= memo.created_at.strftime("%Y-%m-%d %H:%M") %></p>
-      </div>
-    </div>
+    <%= render partial: 'memo', locals: { memo: memo } %>
   <% end %>
 </div>
 

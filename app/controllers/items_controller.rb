@@ -4,19 +4,8 @@ class ItemsController < ApplicationController
 
   def index
     @user = current_user
-    @items = @user.items.not_purchased
-
-    @is_filtered = @selected_year.present? && @selected_month.present?
-    if @is_filtered
-      @items = @items.for_year_and_month(@selected_year, @selected_month)
-    end
-
-    @total = @items.sum(:price)
-  end
-
-  def clear_selected_year_and_month
-    @selected_year = nil
-    @selected_month = nil
+    @items = filter_items(@user.items.not_purchased)
+    @total = @items.total_price
   end
 
   def show
@@ -61,7 +50,7 @@ class ItemsController < ApplicationController
   def destroy
     set_item
     @item.destroy
-    redirect_to item_path
+    redirect_to items_path
   end
 
   def purchase
@@ -71,8 +60,9 @@ class ItemsController < ApplicationController
   end
 
   def purchased
-    @items = Item.where(purchased_flag: true)
     @user = current_user
+    @items = filter_items(Item.where(purchased_flag: true))
+    @total = @items.total_price
   end
 
   private
@@ -90,16 +80,15 @@ class ItemsController < ApplicationController
   end
 
   def set_selected_year_and_month
-    if params[:year].present?
-      @selected_year = params[:year].to_i
-    else
-      @selected_year = nil
-    end
+    @selected_year = params[:year].present? ? params[:year].to_i : nil
+    @selected_month = params[:month].present? ? params[:month].to_i : nil
+  end
 
-    if params[:month].present?
-      @selected_month = params[:month].to_i
+  def filter_items(items)
+    if @selected_year.present? && @selected_month.present?
+      items.for_year_and_month(@selected_year, @selected_month)
     else
-      @selected_month = nil
+      items
     end
   end
 end
