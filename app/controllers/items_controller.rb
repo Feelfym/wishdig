@@ -55,7 +55,11 @@ class ItemsController < ApplicationController
 
   def purchase
     set_item
-    @item.update(purchased_flag: true, purchased_date: Time.now)
+    if @item.purchased_flag
+      @item.update(purchased_flag: false, purchased_date: nil)
+    else
+      @item.update(purchased_flag: true, purchased_date: Time.now)
+    end
     redirect_to items_path
   end
 
@@ -64,7 +68,7 @@ class ItemsController < ApplicationController
     @items = filter_items(Item.where(purchased_flag: true))
     @total = @items.total_price
   end
-
+  
   private
 
   def item_params

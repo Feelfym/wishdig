@@ -8,5 +8,6 @@
     </div>
     <div class="m-1">
     <%= items_table(@items, current_user, 'ほしいもの') %>
+    <%= link_to '+ 新規アイテム', new_item_path, class: "btn btn-outline-secondary ml-4"%>
   <% end %>
 </div>

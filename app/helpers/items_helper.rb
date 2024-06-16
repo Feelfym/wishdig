@@ -40,8 +40,9 @@ module ItemsHelper
 
     content_tag :table, class: 'table table-hover mt-5' do
       concat(
-        content_tag(:thead, class: 'table-light') do
+        content_tag(:thead, class: 'thead-light') do
           content_tag(:tr) do
+            concat content_tag(:th, '画像')
             concat content_tag(:th, 'アイテム名')
             concat content_tag(:th, '価格')
             concat content_tag(:th, column_name)
