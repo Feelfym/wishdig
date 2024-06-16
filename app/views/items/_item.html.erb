@@ -1,7 +1,7 @@
 <tr data-link="<%= item_path(item) %>">
   <td><%= image_tag item.image, class: "img-fluid", style: "max-width: 60px; height: auto; max-height: 40px" if item.image.attached? %></td>
   <td><%= item.name %></td>
-  <td>¥<%= number_with_delimiter(item.price) %></td>
+  <td><%= formatted_price(item.price) %></td>
   <% if item.purchased_flag? %>
     <td><%= item.purchased_date %></td>
   <% else %>

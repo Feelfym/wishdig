@@ -7,7 +7,16 @@
       <%= render 'date_filter_form', form_url: items_path %>
     </div>
     <div class="m-1">
-    <%= items_table(@items, current_user, 'ほしいもの') %>
-    <%= link_to '+ 新規アイテム', new_item_path, class: "btn btn-outline-secondary ml-4"%>
+      <ul class="nav nav-tabs mt-3">
+        <li class="nav-item">
+          <a class="nav-link disabled active">ほしいもの</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link "href="items/purchased">買ったもの</a>
+        </li>
+      </ul>
+      <%= items_table(@items, current_user, 'ほしいもの') %>
+      <%= link_to '+ 新規アイテム', new_item_path, class: "btn btn-outline-secondary ml-4"%>
+    </div>
   <% end %>
 </div>

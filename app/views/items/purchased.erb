@@ -7,6 +7,15 @@
       <%= render 'date_filter_form', form_url: purchased_items_path %>
     </div>
     <div class="m-1">
-    <%= items_table(@items, current_user, '購入済み') %>
+      <ul class="nav nav-tabs mt-3">
+        <li class="nav-item">
+          <a class="nav-link" href="/items">ほしいもの</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active disabled">買ったもの</a>
+        </li>
+      </ul>
+      <%= items_table(@items, current_user, '購入済み') %>
+    </div>
   <% end %>
 </div>
