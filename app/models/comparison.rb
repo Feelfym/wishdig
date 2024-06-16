@@ -4,8 +4,7 @@ class Comparison < ApplicationRecord
   has_many :notes, dependent: :destroy
 
   validate :different_items
-  validates :primary_item_id, presence: true
-  validates :secondary_item_id, presence: true
+  validate :unique_combination
 
   private
 
@@ -14,4 +13,12 @@ class Comparison < ApplicationRecord
       errors.add(:secondary_item_id, "はアイテム1と異なるものを選択してください")
     end
   end
+
+  def unique_combination
+    if Comparison.exists?(primary_item_id: primary_item_id, secondary_item_id: secondary_item_id) ||
+       Comparison.exists?(primary_item_id: secondary_item_id, secondary_item_id: primary_item_id)
+      errors.add(:base, "このアイテムの組み合わせはすでに存在します")
+    end
+  end
+  
 end

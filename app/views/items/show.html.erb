@@ -10,8 +10,8 @@
       <% if @item.url != "" %>
         <%= link_to "商品ページ", @item.url, target: "_blank", class: "btn btn-info item-link" %>
       <% end %>
-      <%= link_to "編集", edit_item_path(@item), class: "btn btn-primary" %>
-      <%= link_to "もどる", items_path, class: "btn btn-secondary" %>
+      <%= link_to "編集", edit_item_path(@item), class: "btn btn-outline-primary" %>
+      <%= link_to "もどる", items_path, class: "btn btn-outline-secondary" %>
     </div>
   </div>
 </div>
@@ -20,7 +20,7 @@
   <%= form_with(model: @memo, url: item_memos_path(@item), class: "mb-5") do |form| %>
     <%= form.collection_select(:title_id, Title.all, :id, :name, {}, {class:"btn btn-sm border border-secondary-subtle dropdown-toggle title_id-select mb-3"}) %>
     <%= form.text_area :content, class: "form-control", placeholder: "メモを入力" %>
-    <%= form.submit "メモを追加", class: "btn btn-primary m-3" %>
+    <%= form.submit "メモを追加", class: "btn btn-outline-primary m-3" %>
   <% end %>
 </div>
 <div class="container mt-4" style="max-width: 800px;">

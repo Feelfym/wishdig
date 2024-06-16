@@ -12,7 +12,7 @@ module ItemsHelper
   end
 
   def display_heading(list_name)
-    if @is_filtered
+    if filtered?
       if @items.present?
         "#{@selected_year}年#{@selected_month}月の#{list_name}: #{formatted_price(@total)}"
       else
@@ -40,7 +40,7 @@ module ItemsHelper
 
     content_tag :table, class: 'table table-hover mt-5' do
       concat(
-        content_tag(:thead, class: 'thead-dark') do
+        content_tag(:thead, class: 'table-light') do
           content_tag(:tr) do
             concat content_tag(:th, 'アイテム名')
             concat content_tag(:th, '価格')
@@ -58,6 +58,12 @@ module ItemsHelper
         end
       )
     end
+  end
+
+  private
+
+  def filtered?
+    @selected_year.present? && @selected_month.present?
   end
 
 end

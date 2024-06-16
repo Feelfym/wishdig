@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
 
-  root to: "items#index"
+  root to: redirect('/items')
   resources :items do
     resources :memos, only: [:create, :destroy]
     collection do

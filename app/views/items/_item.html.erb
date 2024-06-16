@@ -12,11 +12,11 @@
     <td></td>
   <% end %>
   <td>
-    <%= link_to "詳細", item_path(item), class: "btn btn-info btn-sm item-link" %>
-    <%= link_to "編集", edit_item_path(item), class: "btn btn-info btn-sm item-link" %>
-    <%= link_to "削除", item_path(item), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "btn btn-danger btn-sm item-link" %>
+    <%= link_to "詳細", item_path(item), class: "btn btn-outline-secondary btn-sm item-link mr-2" %>
+    <%= link_to "編集", edit_item_path(item), class: "btn btn-outline-secondary btn-sm item-link mr-2" %>
+    <%= link_to "削除", item_path(item), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "btn btn-outline-danger btn-sm item-link mr-2" %>
     <% unless item.purchased_flag %>
-      <%= link_to "購入した", purchase_item_path(item), class: "btn btn-success btn-sm item-link", data: {turbo_method: :patch, turbo_confirm: "購入済みにしますか？" } %>
+      <%= link_to "購入済みにする", purchase_item_path(item), class: "btn btn-outline-secondary btn-sm item-link mr-2", data: {turbo_method: :patch, turbo_confirm: "購入済みにしますか？" } %>
     <% end %>
   </td>
 </tr>

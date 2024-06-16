@@ -1,8 +1,8 @@
 <%= form_with model: [ @comparison, @note ], local: true, class: "form-inline" do |form| %>
-  <tr>
-    <td><%= form.text_field :attribute_name, placeholder: '属性名', class: "form-control mb-2 mr-sm-2" %></td>
-    <td><%= form.text_field :primary_value, placeholder: '', class: "form-control mb-2 mr-sm-2" %></td>
-    <td><%= form.text_field :secondary_value, placeholder: '', class: "form-control mb-2 mr-sm-2" %></td>
-    <td><%= form.submit '追加', class: "btn btn-primary btn-sm mb-2", data: {turbo: false} %></td>
-  </tr>
+    <tr>
+      <td><%= form.text_field :attribute_name, placeholder: '属性名', class: "border border-end-0 form-control-sm mb-2 mr-sm-2" %></td>
+      <td><%= form.text_area :primary_value, placeholder: '', class: "border border-end-0 form-control-sm mb-2 mr-sm-2" %></td>
+      <td><%= form.text_area :secondary_value, placeholder: '', class: "border border-end-0 form-control-sm mb-2 mr-sm-2" %></td>
+      <td><%= form.submit '追加', class: "btn btn-outline-primary  btn-sm mb-2", data: {turbo: false} %></td>
+    </tr>
 <% end %>

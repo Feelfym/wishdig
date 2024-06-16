@@ -1,6 +1,6 @@
 class Title < ActiveHash::Base
   self.data = [
-    { id:1, name: 'タイトルを選択してください' },
+    { id:1, name: 'メモのテーマを選択してください' },
     { id:2, name: '欲しいと思う理由は？' },
     { id:3, name: '他の製品との違いは？' },
     { id:4, name: 'ワンランク下げてみるのはどう？' },

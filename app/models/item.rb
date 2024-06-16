@@ -12,6 +12,7 @@ class Item < ApplicationRecord
   # アソシエーション
   belongs_to :user
   has_many :memos, dependent: :destroy
+  has_one_attached :image
 
   # スコープ
   scope :not_purchased, -> { where(purchased_flag: false) }
