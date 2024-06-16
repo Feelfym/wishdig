@@ -1,26 +1,12 @@
 <div class="container mt-4" style="max-width: 90%;">
-
   <% if user_signed_in? %>
-    <div class="row m-2 mt-5">
+    <div class="mt-5">
       <h3><%= display_heading("買ったものリスト") %></h3>
     </div>
-
-    <div class="mt-4">
-      <%= form_with url: purchased_items_path, method: :get, local: true do %>
-        <div class="form-wrapper d-flex align-items-center">
-          <div class="form-group mr-4">
-            <label for="year">年を選択:</label>
-            <%= year_select(@selected_year) %>
-          </div>
-          <div class="form-group">
-            <label for="month">月を選択:</label>
-            <%= month_select(@selected_month) %>
-          </div>
-        </div>
-      <% end %>
+    <div class="mt-5">
+      <%= render 'date_filter_form', form_url: purchased_items_path %>
     </div>
-
+    <div class="m-1">
     <%= items_table(@items, current_user, '購入済み') %>
-
   <% end %>
 </div>

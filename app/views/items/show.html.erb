@@ -3,9 +3,7 @@
     <div class="card-header">
       <h2><%= @item.name %></h2>
     </div>
-    <div>
-      <%= image_tag @item.image.variant(resize: '500x500'), class: "card-img-top" if item.image.attached? %>
-    </div>
+      <%= image_tag @item.image.variant(resize: '1000x1000'), class: "card-img-top" if @item.image.attached? %>
     <div class="card-body">
       <p class="card-text">説明：<%= @item.description %></p>
       <p class="card-text">価格: <%= formatted_price(@item.price) %></p>
