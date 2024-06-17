@@ -1,5 +1,5 @@
 class ComparisonsController < ApplicationController
-  berore_action :set_comparison, only: [:show, :destroy]
+  before_action :set_comparison, only: [:show, :destroy]
 
   def index
     @comparisons = Comparison.all
