@@ -1,9 +1,9 @@
 class ItemsController < ApplicationController
-  before_action :move_to_index
   before_action :set_selected_year_and_month
+  before_action :set_item, only: %i[edit update destroy purchase]
+  before_action :set_user, only: %i[index purchased]
 
   def index
-    @user = current_user
     @items = filter_items(@user.items.not_purchased)
     @total = @items.total_price
   end
@@ -12,7 +12,7 @@ class ItemsController < ApplicationController
     @memo = Memo.new
     @memos = Memo.where(item_id: params[:id]).order("created_at DESC")
     if user_signed_in? && current_user.id == Item.find(params[:id]).user_id
-      @item = Item.find(params[:id])
+      set_item
     else
       redirect_to root_path
     end
@@ -35,11 +35,9 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    set_item
   end
 
   def update
-    set_item
     if @item.update(item_params)
       redirect_to root_path
     else
@@ -48,13 +46,11 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    set_item
     @item.destroy
     redirect_to items_path
   end
 
   def purchase
-    set_item
     if @item.purchased_flag
       @item.update(purchased_flag: false, purchased_date: nil)
     else
@@ -64,23 +60,22 @@ class ItemsController < ApplicationController
   end
 
   def purchased
-    @user = current_user
     @items = filter_items(Item.where(purchased_flag: true))
     @total = @items.total_price
   end
-  
+
   private
 
   def item_params
     params.require(:item).permit(:name, :description, :price, :will_purchase_date, :url, :purchased_flag, :purchased_date, :image).merge(user_id: current_user.id)
   end
 
-  def move_to_index
-    redirect_to new_user_session_path unless user_signed_in?
-  end
-
   def set_item
     @item = Item.find(params[:id])
+  end
+
+  def set_user
+    @user = current_user
   end
 
   def set_selected_year_and_month

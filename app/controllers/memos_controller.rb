@@ -1,7 +1,6 @@
 class MemosController < ApplicationController
   before_action :set_memo, only: [:destroy]
   before_action :set_item, only: [:create, :destroy]
-  before_action :authenticate_user!
 
   def create
     @memo = @item.memos.new(memo_params)

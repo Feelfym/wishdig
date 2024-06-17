@@ -1,11 +1,11 @@
 class ComparisonsController < ApplicationController
+  berore_action :set_comparison, only: [:show, :destroy]
 
   def index
     @comparisons = Comparison.all
   end
 
   def show
-    @comparison = Comparison.find(params[:id])
     @note = @comparison.notes.build
   end
 
@@ -30,7 +30,6 @@ class ComparisonsController < ApplicationController
   end
 
   def destroy
-    @comparison = Comparison.find(params[:id])
     @comparison.destroy
     redirect_to comparisons_path
   end
@@ -48,6 +47,10 @@ class ComparisonsController < ApplicationController
   def find_existing_comparison
     Comparison.find_by(primary_item_id: comparison_params[:primary_item_id], secondary_item_id: comparison_params[:secondary_item_id]) ||
     Comparison.find_by(primary_item_id: comparison_params[:secondary_item_id], secondary_item_id: comparison_params[:primary_item_id])
+  end
+
+  def set_comparison
+    @comparison = Comparison.find(params[:id])
   end
 
 end

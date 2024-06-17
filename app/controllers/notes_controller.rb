@@ -1,6 +1,7 @@
 class NotesController < ApplicationController
+  before_action :set_comparison, only: %i[create destroy]
+
   def create
-    @comparison = Comparison.find(params[:comparison_id])
     @note = @comparison.notes.build(note_params)
     if @note.save
       redirect_to @comparison, notice: 'Note was successfully created.'
@@ -10,7 +11,6 @@ class NotesController < ApplicationController
   end
 
   def destroy
-    @comparison = Comparison.find(params[:comparison_id])
     @note = @comparison.notes.find(params[:id])
     @note.destroy
     redirect_to @comparison, notice: 'Note was successfully deleted.'
@@ -20,5 +20,9 @@ class NotesController < ApplicationController
 
   def note_params
     params.require(:note).permit(:attribute_name, :primary_value, :secondary_value)
+  end
+
+  def set_comparison
+    @comparison = Comparison.find(params[:comparison_id])
   end
 end

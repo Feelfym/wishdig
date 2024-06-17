@@ -1,7 +1,8 @@
 <div class="container mt-4" style="max-width: 800px;">
   <div class="card mb-5">
-    <div class="card-header">
+    <div class="card-header d-flex justify-content-between">
       <h2><%= @item.name %></h2>
+      <%= link_to "削除", item_path(@item), data: {turbo_method: :delete, turbo_confirm: "削除しますか？"}, class: "btn btn-sm mt-2" %>
     </div>
     <%= image_tag @item.image, class: "img-fluid mx-auto d-block", style: "max-width: 300px; height: auto;" if @item.image.attached? %>
     <div class="card-body">
