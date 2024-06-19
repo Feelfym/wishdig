@@ -1,8 +1,7 @@
-<div class="container mt-4" style="max-width: 1000px;">
+<div class="container mt-4">
   <h1 class="my-4">すべての比較</h1>
-
-  <table class="table">
-    <thead class="table-light">
+  <table class="table table-hover">
+    <thead class="thead-light">
       <tr>
         <th scope="col">アイテム1</th>
         <th scope="col">アイテム2</th>
@@ -11,15 +10,22 @@
     </thead>
     <tbody>
       <% @comparisons.each do |comparison| %>
-        <tr>
-          <td><%= comparison.primary_item.name %></td>
-          <td><%= comparison.secondary_item.name %></td>
-          <td>
-            <%= link_to '表示', comparison_path(comparison), class: 'btn btn-sm btn-outline-secondary mr-2' %>
-            <%= link_to '削除', comparison_path(comparison), data: {turbo_method: :delete, turbo_confirm: "削除しますか？"}, class: "btn btn-outline-danger btn-sm item-link" %>
-          </td>
-        </tr>
+        <% if comparison.primary_item != nil && comparison.secondary_item != nil %>
+          <tr data-link="<%= comparison_path(comparison) %>">
+            <td>
+              <%= render partial: 'index_row', locals: { item: comparison.primary_item }%>
+            </td>
+            <td>
+              <%= render partial: 'index_row', locals: { item: comparison.secondary_item }%>
+            </td>
+            <td>
+              <%= link_to '表示', comparison_path(comparison), class: 'btn btn-sm btn-outline-secondary mr-2' %>
+              <%= link_to '削除', comparison_path(comparison), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "btn btn-outline-danger btn-sm item-link" %>
+            </td>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>
+  <%= link_to '新規比較', new_comparison_path, class: 'btn btn-outline-primary' %>
 </div>

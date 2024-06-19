@@ -39,7 +39,11 @@ class ItemsController < ApplicationController
 
   def update
     if @item.update(item_params)
-      redirect_to root_path
+      if params[:source] == 'comparison'
+        redirect_to comparisons_path
+      else
+        redirect_to items_path
+      end
     else
       render :edit
     end
@@ -79,8 +83,8 @@ class ItemsController < ApplicationController
   end
 
   def set_selected_year_and_month
-    @selected_year = params[:year].present? ? params[:year].to_i : nil
-    @selected_month = params[:month].present? ? params[:month].to_i : nil
+    @selected_year = params[:selected_year].present? ? params[:selected_year].to_i : nil
+    @selected_month = params[:selected_month].present? ? params[:selected_month].to_i : nil
   end
 
   def filter_items(items)

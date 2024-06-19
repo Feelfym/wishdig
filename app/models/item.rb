@@ -16,8 +16,10 @@ class Item < ApplicationRecord
 
   # スコープ
   scope :not_purchased, -> { where(purchased_flag: false) }
+  scope :purchased, -> { where(purchased_flag: true) }
   scope :for_year_and_month, -> (year, month) {
     where('extract(year from will_purchase_date) = ? AND extract(month from will_purchase_date) = ?', year, month)
+      .or(where('extract(year from purchased_date) = ? AND extract(month from purchased_date) = ?', year, month))
   }
 
   # クラスメソッド

@@ -20,5 +20,4 @@ class Comparison < ApplicationRecord
       errors.add(:base, "このアイテムの組み合わせはすでに存在します")
     end
   end
-  
 end

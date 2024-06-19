@@ -1,30 +1,38 @@
-<div class="container mt-4">
-  <h2 class="my-4">比較</h2>
-  <table class="table" style="max-width: 90%;">
-    <thead class="table-light">
-      <tr>
-        <th scope="col">比較ポイント</th>
-        <th scope="col"><%= @comparison.primary_item.name %></th>
-        <th scope="col"><%= @comparison.secondary_item.name %></th>
-        <th scope="col">操作</th>
-      </tr>
-    </thead>
-    <tbody class="table-group-divider">
-      <% @comparison.notes.each do |note| %>
-        <% if note.attribute_name.present? %>
-          <tr>
-            <td><%= note.attribute_name %></td>
-            <td><%= note.primary_value %></td>
-            <td><%= note.secondary_value %></td>
-            <td>
-              <% if note.persisted? %>
-                <%= link_to "削除", comparison_note_path(@comparison, note), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "btn btn-outline-danger btn-sm item-link" %>
-              <% end %>          
-            </td>
-          </tr>
+<div class="container mt-4" style="max-width: 90%;">
+  <% if @comparison.primary_item != nil && @comparison.secondary_item != nil %>
+    <h2 class="my-4">比較</h2>
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th scope="col">比較ポイント</th>
+          <th scope="col" class="w-50 align-top" style="height: 100%; font-weight:normal;">
+            <%= render partial: 'items/item_card', locals: { item: @comparison.primary_item, source: 'comparison' } %>
+          </th>
+          <th scope="col" class="w-50 align-top" style="height: 100%; font-weight:normal;">
+            <%= render partial: 'items/item_card', locals: { item: @comparison.secondary_item, source: 'comparison' }%>
+          </th>
+          <th scope="col">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @comparison.notes.each do |note| %>
+          <% if note.attribute_name.present? %>
+            <tr>
+              <td><%= note.attribute_name %></td>
+              <td><%= note.primary_value %></td>
+              <td><%= note.secondary_value %></td>
+              <td>
+                <% if note.persisted? %>
+                  <%= link_to "削除", comparison_note_path(@comparison, note), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "btn btn-outline-danger btn-sm item-link" %>
+                <% end %>          
+              </td>
+            </tr>
+          <% end %>
         <% end %>
-      <% end %>
-      <%= render 'notes/form', comparison: @comparison, note: @note %>
-    </tbody>
-  </table>
+        <%= render 'notes/form', comparison: @comparison, note: @note %>
+      </tbody>
+    </table>
+  <% elsif %>
+    <h2 class="my-4">対象アイテムが削除されています。</h2>
+  <% end %>
 </div>

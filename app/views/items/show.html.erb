@@ -1,35 +1,19 @@
-<div class="container mt-4" style="max-width: 800px;">
-  <div class="card mb-5">
-    <div class="card-header d-flex justify-content-between">
-      <h2><%= @item.name %></h2>
-      <%= link_to "削除", item_path(@item), data: {turbo_method: :delete, turbo_confirm: "削除しますか？"}, class: "btn btn-sm mt-2" %>
-    </div>
-    <%= image_tag @item.image, class: "img-fluid mx-auto d-block", style: "max-width: 300px; height: auto;" if @item.image.attached? %>
-    <div class="card-body">
-      <p class="card-text">説明：<%= @item.description %></p>
-      <p class="card-text">価格: <%= formatted_price(@item.price) %></p>
-      <p class="card-text">購入予定日: <%= @item.will_purchase_date %></p>
-      <% if @item.url != "" %>
-        <%= link_to "商品ページ", @item.url, target: "_blank", class: "btn btn-info item-link" %>
-      <% end %>
-      <%= link_to "編集", edit_item_path(@item), class: "btn btn-outline-primary" %>
-      <%= link_to "もどる", items_path, class: "btn btn-outline-secondary" %>
-    </div>
+<div class="container mt-4">
+    <%= render partial: 'item_card', locals: { item: @item, source: 'show' } %>
+  <div class="mt-4">
+    <%= form_with(model: @memo, url: item_memos_path(@item), class: "mb-5") do |form| %>
+      <%= form.collection_select(:title_id, Title.all, :id, :name, {}, {class:"btn btn-sm border border-secondary-subtle dropdown-toggle title_id-select mb-3"}) %>
+      <%= form.text_area :content, class: "form-control", placeholder: "メモを入力" %>
+      <%= form.submit "メモを追加", class: "btn btn-outline-primary m-3" %>
+    <% end %>
+  </div>
+  <div class="mt-4">
+    <% @memos.each do |memo| %>
+      <%= render partial: 'memo', locals: { memo: memo } %>
+    <% end %>
   </div>
 </div>
 
-<div class="container mt-4" style="max-width: 800px;">
-  <%= form_with(model: @memo, url: item_memos_path(@item), class: "mb-5") do |form| %>
-    <%= form.collection_select(:title_id, Title.all, :id, :name, {}, {class:"btn btn-sm border border-secondary-subtle dropdown-toggle title_id-select mb-3"}) %>
-    <%= form.text_area :content, class: "form-control", placeholder: "メモを入力" %>
-    <%= form.submit "メモを追加", class: "btn btn-outline-primary m-3" %>
-  <% end %>
-</div>
-<div class="container mt-4" style="max-width: 800px;">
-  <% @memos.each do |memo| %>
-    <%= render partial: 'memo', locals: { memo: memo } %>
-  <% end %>
-</div>
 
 <style>
   .delete-form {

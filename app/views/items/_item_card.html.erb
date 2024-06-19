@@ -1,0 +1,22 @@
+<div class="card" style="height: 100%;">
+  <div class="card-header d-flex justify-content-between">
+    <h2><%= item.name %></h2>
+    <div>
+      <%= link_to "編集", edit_item_path(item, source: source), class: "btn btn-sm mt-2" %>
+      <%= link_to "削除", item_path(item), data: {turbo_method: :delete, turbo_confirm: "このアイテムが参加している比較ページも削除されます。\n削除しますか？"}, class: "btn btn-sm mt-2" %>
+    </div>
+  </div>
+  <%if item.image.attached? %>
+    <%= image_tag item.image, class: "img-fluid mx-auto d-block", style: "max-width: 200px; max-height: 200px; height: auto;" %>
+  <% else %>
+    <%= image_tag "noimage.jpg", class: "img-fluid mx-auto d-block", style: "max-width: 200px; height: 200px" %>
+  <% end %>
+  <div class="card-body">
+    <p class="card-text">説明：<%= simple_format(item.description) %></p>
+    <p class="card-text">価格: <%= formatted_price(item.price) %></p>
+    <p class="card-text">購入予定日: <%= item.will_purchase_date %></p>
+    <% if item.url != "" %>
+      <%= link_to "商品ページ", item.url, target: "_blank", class: "btn btn-outline-info item-link" %>
+    <% end %>
+  </div>
+</div>

@@ -39,6 +39,10 @@
     <%= form.text_field :url, class: "form-control" %>
   </div>
 
+  <% if params[:source] %>
+    <%= hidden_field_tag :source, params[:source] %>
+  <% end %>
+
   <div class="form-group">
     <% if item.persisted? %>
       <%= form.submit '更新', class: "btn btn-outline-primary", data: {turbo: false} %>

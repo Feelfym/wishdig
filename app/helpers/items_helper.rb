@@ -29,35 +29,36 @@ module ItemsHelper
 
   def items_table(items, current_user, table_name)
     return unless items.present?
-
-    if table_name == '購入済み'
-      column_name = '購入日'
-    elsif table_name == 'ほしいもの'
-      column_name = '購入予定日'
-    else
-      column_name = '日付'
-    end
-
+  
+    column_name = table_column_name(table_name) #プライベートメソッドで定義
     content_tag :table, class: 'table table-hover mt-5' do
-      concat(
-        content_tag(:thead, class: 'thead-light') do
-          content_tag(:tr) do
-            concat content_tag(:th, '画像')
-            concat content_tag(:th, 'アイテム名')
-            concat content_tag(:th, '価格')
-            concat content_tag(:th, column_name)
-            concat content_tag(:th, 'URL')
-            concat content_tag(:th, '操作')
-          end
-        end
-      )
-      concat(
-        content_tag(:tbody) do
-          items.each do |item|
-            concat(render partial: 'item', locals: { item: item }) if item.user_id == current_user.id
-          end
-        end
-      )
+      concat table_header(column_name) #プライベートメソッドで定義
+      concat table_body(items, current_user) #プライベートメソッドで定義
+    end
+  end
+  
+  
+  def item_image(item)
+    if item.image.attached?
+      item.image
+    else
+      "noimage.jpg"
+    end
+  end
+  
+  def item_date(item)
+    item.purchased_flag? ? item.purchased_date : item.will_purchase_date
+  end
+  
+  def item_url(item)
+    item.url.present? ? link_to("商品ページ", item.url, target: "_blank", class: "btn btn-outline-info btn-sm item-link") : ""
+  end
+  
+  def purchase_link(item)
+    if item.purchased_flag?
+      link_to "未購入に戻す", purchase_item_path(item), class: "btn btn-outline-secondary btn-sm item-link mr-2", data: { turbo_method: :patch, turbo_confirm: "未購入に戻しますか？" }
+    else
+      link_to "購入済みにする", purchase_item_path(item), class: "btn btn-outline-secondary btn-sm item-link mr-2", data: { turbo_method: :patch, turbo_confirm: "購入済みにしますか？" }
     end
   end
 
@@ -67,4 +68,33 @@ module ItemsHelper
     @selected_year.present? && @selected_month.present?
   end
 
+  def table_column_name(table_name)
+    case table_name
+    when '購入済み'
+      '購入日'
+    when 'ほしいもの'
+      '購入予定日'
+    else
+      '日付'
+    end
+  end
+
+  def table_header(column_name)
+    content_tag(:thead, class: 'thead-light') do
+      content_tag(:tr) do
+        ['', 'アイテム名', '価格', column_name, 'URL', '操作'].each do |header|
+          concat content_tag(:th, header)
+        end
+      end
+    end
+  end
+  
+  
+  def table_body(items, current_user)
+    content_tag(:tbody) do
+      items.each do |item|
+        concat(render partial: 'item', locals: { item: item }) if item.user_id == current_user.id
+      end
+    end
+  end
 end

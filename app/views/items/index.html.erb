@@ -12,7 +12,7 @@
           <a class="nav-link disabled active">ほしいもの</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link "href="items/purchased">買ったもの</a>
+          <%= link_to '買ったもの', purchased_items_path(selected_year: @selected_year, selected_month: @selected_month), class: "nav-link" %>
         </li>
       </ul>
       <%= items_table(@items, current_user, 'ほしいもの') %>

@@ -4,7 +4,7 @@ module ApplicationHelper
     (2024..Date.today.year+3).each do |year|
       options += content_tag(:option, "#{year}年", value: year, selected: year == selected_year)
     end
-    select_tag 'year', options, id: 'year', class: 'form-control', onchange: 'this.form.submit()'
+    select_tag 'selected_year', options, id: 'selected_year', class: 'form-control'
   end
 
   def month_select(selected_month)
@@ -12,6 +12,6 @@ module ApplicationHelper
     (1..12).each do |month|
       options += content_tag(:option, "#{month}月", value: month, selected: month == selected_month)
     end
-    select_tag 'month', options, id: 'month', class: 'form-control', onchange: 'this.form.submit()'
+    select_tag 'selected_month', options, id: 'selected_month', class: 'form-control'
   end
 end

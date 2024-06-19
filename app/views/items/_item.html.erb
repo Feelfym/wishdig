@@ -1,25 +1,21 @@
 <tr data-link="<%= item_path(item) %>">
-  <td><%= image_tag item.image, class: "img-fluid", style: "max-width: 60px; height: auto; max-height: 40px" if item.image.attached? %></td>
+  <td>
+    <div class="d-flex justify-content-center">
+      <%# item_imageメソッドで、画像がない場合の分岐まで処理している %>
+      <%= image_tag item_image(item), class: "img-fluid", style: "max-width: 60px; height: auto; max-height: 40px" %>
+    </div>
+  </td>
   <td><%= item.name %></td>
+  <%# formatted_priceメソッドは、数値に¥マークをつけてカンマ区切りにするメソッド%>
   <td><%= formatted_price(item.price) %></td>
-  <% if item.purchased_flag? %>
-    <td><%= item.purchased_date %></td>
-  <% else %>
-    <td><%= item.will_purchase_date %></td>
-  <% end %>
-  <% if item.url.present? %>
-    <td><%= link_to "商品ページ", item.url, target: "_blank", class: "btn btn-outline-info btn-sm item-link" %></td>
-  <% else %>
-    <td></td>
-  <% end %>
+  <%# item_dateメソッドは、購入済みならば購入日、未購入ならば購入予定日を返すヘルパーメソッド%>
+  <td><%= item_date(item) %></td>
+  <%# item_urlメソッドは、URLがある場合のみリンクボタンを表示するメソッド%>
+  <td><%= item_url(item) %></td>
   <td>
     <%= link_to "詳細", item_path(item), class: "btn btn-outline-secondary btn-sm item-link mr-2" %>
-    <%= link_to "編集", edit_item_path(item), class: "btn btn-outline-secondary btn-sm item-link mr-2" %>
+    <%= link_to "編集", edit_item_path(item, source: 'index'), class: "btn btn-outline-secondary btn-sm item-link mr-2" %>
     <%= link_to "削除", item_path(item), data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }, class: "btn btn-outline-danger btn-sm item-link mr-2" %>
-    <% unless item.purchased_flag %>
-      <%= link_to "購入済みにする", purchase_item_path(item), class: "btn btn-outline-secondary btn-sm item-link mr-2", data: {turbo_method: :patch, turbo_confirm: "購入済みにしますか？" } %>
-    <% else %>
-      <%= link_to "未購入に戻す", purchase_item_path(item), class: "btn btn-outline-secondary btn-sm item-link mr-2", data: {turbo_method: :patch, turbo_confirm: "未購入に戻しますか？" } %>
-    <% end %>
+    <%= purchase_link(item) %>
   </td>
 </tr>
