@@ -8,6 +8,5 @@ class User < ApplicationRecord
   validates :password, presence: true
   validates :password_confirmation, presence: true
   validates :name, presence: true
-  has_many :items
-  has_many :memos
+  has_many :items, dependent: :destroy
 end
