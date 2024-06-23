@@ -9,10 +9,10 @@
       <%= month_select(@selected_month) %>
     </div>
     <div class="form-group">
-      <%= form.submit '絞り込み', class: 'btn btn-outline-primary btn-sm ml-4 mt-3' %>
+      <%= form.submit '絞り込み', class: 'btn btn-outline-primary btn-sm ml-4 mt-4' %>
     </div>
     <div class="form-group">
-      <%= link_to '選択を解除', form_url, class: 'btn btn-outline-primary btn-sm ml-4 mt-3' if @selected_year.present? && @selected_month.present? %>
+      <%= link_to '選択を解除', form_url, class: 'btn btn-outline-primary btn-sm ml-4 mt-4' if @selected_year.present? && @selected_month.present? %>
     </div>
   </div>
 <% end %>

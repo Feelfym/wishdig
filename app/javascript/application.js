@@ -24,3 +24,4 @@ document.addEventListener("DOMContentLoaded", function() {
 document.addEventListener("turbo:load", function() {
   initializeRowClickEvents();
 });
+
