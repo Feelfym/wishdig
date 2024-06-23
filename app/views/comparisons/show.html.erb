@@ -1,15 +1,15 @@
 <div class="container mt-4" style="max-width: 90%;">
-  <% if @comparison.primary_item != nil && @comparison.secondary_item != nil %>
+  <% if @comparison.primary_item.present? && @comparison.secondary_item.present? %>
     <h2 class="my-4">比較</h2>
     <table class="table table-sm">
       <thead>
         <tr>
           <th scope="col">比較ポイント</th>
           <th scope="col" class="w-50 align-top" style="height: 100%; font-weight:normal;">
-            <%= render partial: 'items/item_card', locals: { item: @comparison.primary_item, source: 'comparison' } %>
+            <%= render partial: 'items/item_card', locals: { item: @comparison.primary_item, comparison_id: @comparison.id, source: 'comparison' } %>
           </th>
           <th scope="col" class="w-50 align-top" style="height: 100%; font-weight:normal;">
-            <%= render partial: 'items/item_card', locals: { item: @comparison.secondary_item, source: 'comparison' }%>
+            <%= render partial: 'items/item_card', locals: { item: @comparison.secondary_item, comparison_id: @comparison.id, source: 'comparison' }%>
           </th>
           <th scope="col">操作</th>
         </tr>

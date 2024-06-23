@@ -15,7 +15,7 @@
           <%= link_to '買ったもの', purchased_items_path(selected_year: @selected_year, selected_month: @selected_month), class: "nav-link" %>
         </li>
       </ul>
-      <%= items_table(@items, current_user, 'ほしいもの') %>
+      <%= items_table(@items, current_user, 'ほしいもの', 'index') %>
       <%= link_to '+ 新規アイテム', new_item_path, class: "btn btn-outline-secondary ml-4"%>
     </div>
   <% end %>

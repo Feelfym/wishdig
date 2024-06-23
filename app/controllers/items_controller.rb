@@ -38,9 +38,17 @@ class ItemsController < ApplicationController
   end
 
   def update
+    comparison_id = params[:comparison_id]
+
     if @item.update(item_params)
       if params[:source] == 'comparison'
-        redirect_to comparisons_path
+        redirect_to comparison_path(comparison_id)
+      elsif params[:source] == 'index'
+        redirect_to items_path
+      elsif params[:source] == 'show'
+        redirect_to item_path(@item)
+      elsif params[:source] == 'purchased'
+        redirect_to purchased_items_path
       else
         redirect_to items_path
       end
@@ -71,7 +79,7 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:name, :description, :price, :will_purchase_date, :url, :purchased_flag, :purchased_date, :image).merge(user_id: current_user.id)
+    params.require(:item).permit(:name, :description, :price, :will_purchase_date, :url, :purchased_flag, :purchased_date, :image, :comparison_id).merge(user_id: current_user.id)
   end
 
   def set_item

@@ -43,6 +43,10 @@
     <%= hidden_field_tag :source, params[:source] %>
   <% end %>
 
+  <% if params[:comparison_id] %>
+    <%= hidden_field_tag :comparison_id, params[:comparison_id] %>
+  <% end %>
+
   <div class="form-group">
     <% if item.persisted? %>
       <%= form.submit '更新', class: "btn btn-outline-primary", data: {turbo: false} %>

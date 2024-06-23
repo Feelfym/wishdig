@@ -27,13 +27,13 @@ module ItemsHelper
     end
   end
 
-  def items_table(items, current_user, table_name)
+  def items_table(items, current_user, table_name, source)
     return unless items.present?
   
     column_name = table_column_name(table_name) #プライベートメソッドで定義
     content_tag :table, class: 'table table-hover mt-5' do
       concat table_header(column_name) #プライベートメソッドで定義
-      concat table_body(items, current_user) #プライベートメソッドで定義
+      concat table_body(items, current_user, source) #プライベートメソッドで定義
     end
   end
   
@@ -90,10 +90,10 @@ module ItemsHelper
   end
   
   
-  def table_body(items, current_user)
+  def table_body(items, current_user, source)
     content_tag(:tbody) do
       items.each do |item|
-        concat(render partial: 'item', locals: { item: item }) if item.user_id == current_user.id
+        concat(render partial: 'item', locals: { item: item, source: source }) if item.user_id == current_user.id
       end
     end
   end

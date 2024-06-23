@@ -1,7 +1,7 @@
 <div class="container mt-4">
-    <%= render partial: 'item_card', locals: { item: @item, source: 'show' } %>
+    <%= render partial: 'items/item_card', locals: { item: @item, source: 'show' } %>
   <div class="mt-4">
-    <%= form_with(model: @memo, url: item_memos_path(@item), class: "mb-5") do |form| %>
+    <%= form_with(model: [ @item, @item.memos.build ], url: item_memos_path(@item), class: "mb-5") do |form| %>
       <%= form.collection_select(:title_id, Title.all, :id, :name, {}, {class:"btn btn-sm border border-secondary-subtle dropdown-toggle title_id-select mb-3"}) %>
       <%= form.text_area :content, class: "form-control", placeholder: "メモを入力" %>
       <%= form.submit "メモを追加", class: "btn btn-outline-primary m-3" %>
@@ -9,7 +9,7 @@
   </div>
   <div class="mt-4">
     <% @memos.each do |memo| %>
-      <%= render partial: 'memo', locals: { memo: memo } %>
+      <%= render partial: 'items/memo', locals: { memo: memo } %>
     <% end %>
   </div>
 </div>

@@ -3,8 +3,7 @@ class MemosController < ApplicationController
   before_action :set_item, only: [:create, :destroy]
 
   def create
-    @memo = @item.memos.new(memo_params)
-    @memo.user = current_user
+    @memo = @item.memos.build(memo_params)
     if @memo.save
       redirect_to item_path(@item)
     else
@@ -14,18 +13,13 @@ class MemosController < ApplicationController
   end
 
   def destroy
-    if @memo.user == current_user
       @memo.destroy
-      redirect_to item_path(@item), notice: 'Memo was successfully deleted.'
-    else
-      redirect_to item_path(@item), alert: 'You are not authorized to delete this memo.'
-    end
+      redirect_to item_path(@item)
   end
-
   private
 
   def memo_params
-    params.require(:memo).permit(:content, :title_id)
+    params.require(:memo).permit(:title_id, :content)
   end
 
   def set_memo

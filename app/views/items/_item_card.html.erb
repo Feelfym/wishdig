@@ -2,7 +2,12 @@
   <div class="card-header d-flex justify-content-between">
     <h2><%= item.name %></h2>
     <div>
-      <%= link_to "編集", edit_item_path(item, source: source), class: "btn btn-sm mt-2" %>
+      <% @comparison_id = :comparison_id %>
+      <% if source == "comparison" %>
+        <%= link_to "編集", edit_item_path(item, source: source, comparison_id: comparison_id), class: "btn btn-sm mt-2" %>
+      <% else %>
+        <%= link_to "編集", edit_item_path(item, source: source), class: "btn btn-sm mt-2" %>
+      <% end %>
       <%= link_to "削除", item_path(item), data: {turbo_method: :delete, turbo_confirm: "このアイテムが参加している比較ページも削除されます。\n削除しますか？"}, class: "btn btn-sm mt-2" %>
     </div>
   </div>
