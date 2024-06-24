@@ -2,9 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Comparison, type: :model do
   before do
-    @comparison = FactoryBot.build(:comparison)
-    @item1 = FactoryBot.create(:item)
-    @item2 = FactoryBot.create(:item)
+    @user = FactoryBot.create(:user)
+    @comparison = FactoryBot.build(:comparison, user_id: @user.id)
+    @item1 = FactoryBot.create(:item, user_id: @user.id)
+    @item2 = FactoryBot.create(:item, user_id: @user.id)
   end
 
   describe '比較新規登録' do

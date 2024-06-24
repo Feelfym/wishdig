@@ -1,8 +1,9 @@
 class ComparisonsController < ApplicationController
   before_action :set_comparison, only: [:show, :destroy]
+  before_action :not_your_comparison, only: [:show, :destroy]
 
   def index
-    @comparisons = Comparison.all
+    @comparisons = Comparison.where(user_id: current_user.id)
   end
 
   def show
@@ -37,7 +38,7 @@ class ComparisonsController < ApplicationController
   private
 
   def comparison_params
-    params.require(:comparison).permit(:primary_item_id, :secondary_item_id, notes_attributes: [:attribute_name, :primary_value, :secondary_value])
+    params.require(:comparison).permit(:primary_item_id, :secondary_item_id, notes_attributes: [:attribute_name, :primary_value, :secondary_value]).merge(user_id: current_user.id)
   end
 
   def user_items_not_purchased
@@ -51,6 +52,10 @@ class ComparisonsController < ApplicationController
 
   def set_comparison
     @comparison = Comparison.find(params[:id])
+  end
+
+  def not_your_comparison
+    redirect_to comparisons_path if @comparison.user_id != current_user.id
   end
 
 end

@@ -1,6 +1,7 @@
 class Comparison < ApplicationRecord
   belongs_to :primary_item, class_name: 'Item', foreign_key: 'primary_item_id'
   belongs_to :secondary_item, class_name: 'Item', foreign_key: 'secondary_item_id'
+  belongs_to :user
   has_many :notes, dependent: :destroy
 
   validate :different_items
