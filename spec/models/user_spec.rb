@@ -18,6 +18,12 @@ RSpec.describe User, type: :model do
         expect(@user.errors[:name]).to include("can't be blank")
       end
 
+      it 'nameが51文字以上だと登録できない' do
+        @user.name = 'a' * 51
+        @user.valid?
+        expect(@user.errors[:name]).to include('is too long (maximum is 50 characters)')
+      end
+
       it 'emailが空だと登録できない' do
         @user.email = ''
         @user.valid?

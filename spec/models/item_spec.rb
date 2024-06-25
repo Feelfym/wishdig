@@ -58,17 +58,30 @@ RSpec.describe Item, type: :model do
         expect(@item).to be_valid
       end
     end
+
     context '登録できないケース' do
       it 'nameが空だと登録できない' do
         @item.name = ''
         @item.valid?
         expect(@item.errors[:name]).to include("can't be blank")
       end
-      
+
+      it 'nameが51文字以上だと登録できない' do
+        @item.name = 'a' * 51
+        @item.valid?
+        expect(@item.errors[:name]).to include('is too long (maximum is 50 characters)')
+      end
+
       it 'descriptionが空だと登録できない' do
         @item.description = ''
         @item.valid?
         expect(@item.errors[:description]).to include("can't be blank")
+      end
+
+      it 'descriptionが1001文字以上だと登録できない' do
+        @item.description = 'a' * 1001
+        @item.valid?
+        expect(@item.errors[:description]).to include('is too long (maximum is 1000 characters)')
       end
 
       it 'priceが空だと登録できない' do

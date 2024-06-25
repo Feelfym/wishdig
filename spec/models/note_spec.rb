@@ -2,9 +2,10 @@ require 'rails_helper'
 
 RSpec.describe Note, type: :model do
   before do
-    @item1 = FactoryBot.create(:item)
-    @item2 = FactoryBot.create(:item)
-    @comparison = FactoryBot.create(:comparison, primary_item_id: @item1.id, secondary_item_id: @item2.id)
+    @user = FactoryBot.create(:user)
+    @item1 = FactoryBot.create(:item, user_id: @user.id)
+    @item2 = FactoryBot.create(:item, user_id: @user.id)
+    @comparison = FactoryBot.create(:comparison, primary_item_id: @item1.id, secondary_item_id: @item2.id, user_id: @user.id)
     @note = FactoryBot.build(:note, comparison_id: @comparison.id)
   end
 
@@ -32,6 +33,24 @@ RSpec.describe Note, type: :model do
         @note.secondary_value = ''
         @note.valid?
         expect(@note.errors.full_messages).to include("Secondary value can't be blank")
+      end
+
+      it 'attribute_nameの文字数が41文字以上だと登録できない' do
+        @note.attribute_name = 'a' * 41
+        @note.valid?
+        expect(@note.errors.full_messages).to include("Attribute name is too long (maximum is 40 characters)")
+      end
+
+      it 'primary_valueの文字数が256文字以上だと登録できない' do
+        @note.primary_value = 'a' * 256
+        @note.valid?
+        expect(@note.errors.full_messages).to include("Primary value is too long (maximum is 255 characters)")
+      end
+
+      it 'secondary_valueの文字数が256文字以上だと登録できない' do
+        @note.secondary_value = 'a' * 256
+        @note.valid?
+        expect(@note.errors.full_messages).to include("Secondary value is too long (maximum is 255 characters)")
       end
     end
   end

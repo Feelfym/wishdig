@@ -1,8 +1,8 @@
 class Item < ApplicationRecord
 
   # バリデーション
-  validates :name, presence: true
-  validates :description, presence: true
+  validates :name, presence: true, length: { maximum: 50 }
+  validates :description, presence: true, length: { maximum: 1000 }
   validates :price, presence: true, numericality: { greater_than: 0, less_than: 100_000_001}
   validates :will_purchase_date, format: { with: /\d{4}-\d{2}-\d{2}/, message: "must be in the format YYYY-MM-DD" }, allow_blank: true
   validates :url, format: { with: /\A#{URI::regexp(%w(http https))}\z/, message: "must be a valid URL" }, allow_blank: true

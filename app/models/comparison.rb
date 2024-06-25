@@ -6,6 +6,7 @@ class Comparison < ApplicationRecord
 
   validate :different_items
   validate :unique_combination
+  validate :items_belong_to_user
 
   private
 
@@ -19,6 +20,14 @@ class Comparison < ApplicationRecord
     if Comparison.exists?(primary_item_id: primary_item_id, secondary_item_id: secondary_item_id) ||
        Comparison.exists?(primary_item_id: secondary_item_id, secondary_item_id: primary_item_id)
       errors.add(:base, "このアイテムの組み合わせはすでに存在します")
+    end
+  end
+
+  def items_belong_to_user
+    if primary_item_id.present? && secondary_item_id.present?
+      if primary_item.user.id != user.id || secondary_item.user.id != user.id
+        errors.add(:base, "比較するアイテムはユーザーが所有しているものでなければなりません")
+      end
     end
   end
 end

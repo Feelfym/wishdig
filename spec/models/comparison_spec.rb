@@ -39,6 +39,24 @@ RSpec.describe Comparison, type: :model do
         @comparison.valid?
         expect(@comparison.errors.full_messages).to include("Secondary item はアイテム1と異なるものを選択してください")
       end
+
+      it 'current_userのitem以外をprimary_item_idに選択すると登録できない' do
+        @user2 = FactoryBot.create(:user)
+        @other_users_item = FactoryBot.create(:item, user_id: @user2.id)
+        @comparison.primary_item_id = @other_users_item.id
+        @comparison.secondary_item_id = @item2.id
+        @comparison.valid?
+        expect(@comparison.errors.full_messages).to include("比較するアイテムはユーザーが所有しているものでなければなりません")
+      end
+
+      it 'current_userのitem以外をsecondary_item_idに選択すると登録できない' do
+        @user2 = FactoryBot.create(:user)
+        @other_users_item = FactoryBot.create(:item, user_id: @user2.id)
+        @comparison.primary_item_id = @item1.id
+        @comparison.secondary_item_id = @other_users_item.id
+        @comparison.valid?
+        expect(@comparison.errors.full_messages).to include("比較するアイテムはユーザーが所有しているものでなければなりません")
+      end
     end
   end
 end
