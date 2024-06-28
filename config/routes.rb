@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users
+  get 'tutorial/index'
+  devise_for :users, controllers: { sessions: 'users/sessions' }
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
@@ -14,6 +15,8 @@ Rails.application.routes.draw do
       patch :purchase
     end
   end
+
+  get 'tutorial', to: 'tutorial#index'
 
   resources :comparisons, only: [:show, :new, :create, :index, :destroy] do
     resources :notes, only: [:create, :destroy]

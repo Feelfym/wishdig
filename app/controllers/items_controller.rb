@@ -23,8 +23,10 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new(item_params)
+    @user = current_user
+    @item = Item.new(item_params)    
     if @item.save
+      @user.update_attribute(:first_sign_in, false)
       redirect_to root_path
     else
       respond_to do |format|
@@ -33,6 +35,7 @@ class ItemsController < ApplicationController
       end
     end
   end
+  
 
   def edit
   end

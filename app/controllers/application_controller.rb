@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :check_for_tutorial
   before_action :authenticate_user!
 
   def after_sign_in_path_for(resource)
@@ -14,6 +15,13 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+  end
+
+  def check_for_tutorial
+    if user_signed_in? && session[:show_tutorial]
+      session.delete(:show_tutorial)
+      redirect_to tutorial_path
+    end
   end
 
 end

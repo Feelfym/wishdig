@@ -1,0 +1,6 @@
+<div class="container mt-4">
+  <p>ほしいものリストへようこそ。さっそく最初のアイテムを登録しましょう。</p>
+  <%= turbo_frame_tag "item_form" do %>
+    <%= render partial: 'items/form', locals: { item: @item } %>
+  <% end %>
+</div>
