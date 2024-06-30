@@ -1,0 +1,19 @@
+<!-- app/views/tutorial/step1.html.erb -->
+<div class="container mt-4" style="max-width: 90%;">
+  <h1 class="mt-5">ようこそ</h1>
+
+  <h2 class="my-3">今、ほしいものを1つ入力してみましょう。</h2>
+  <div class="my-5">思うままに入力しましょう。誰にも見られることはありません。</div>
+  <%= form_with model: @item, url: update_step1_tutorial_path, method: :patch do |f| %>
+    <div class="form-group mb-5">
+      <div class="d-flex align-items-center">
+        <%= f.label :name, "アイテムの名称", class: "form-label" %>
+        <div class="badge badge-danger ml-2 mb-2" style="height: 20px;">必須</div>
+      </div>
+      <%= f.text_field :name, class: "form-control", placeholder: "入力してください"%>
+    </div>
+    <div class="actions">
+      <%= f.submit "次へ", class: "btn btn-outline-primary" %>
+    </div>
+  <% end %>
+</div>

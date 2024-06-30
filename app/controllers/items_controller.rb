@@ -35,7 +35,6 @@ class ItemsController < ApplicationController
       end
     end
   end
-  
 
   def edit
   end

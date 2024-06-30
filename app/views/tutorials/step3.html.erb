@@ -1,0 +1,33 @@
+<div class="container mt-4" style="max-width: 90%;">
+  <h1 class="mt-5">ようこそ</h1>
+
+  <h2 class="my-3">追加の情報を入力しましょう</h2>
+  <div class="my-5">そのほかの情報を入力しましょう！</div>
+  <%= form_with model: @item, url: update_step3_tutorial_path, method: :patch do |f| %>
+    <div class="form-group">
+      <div class="d-flex align-items-center">
+        <%= f.label :price, "価格", class: "form-label" %>
+        <div class="badge badge-danger ml-2 mb-2" style="height: 20px;">必須</div>
+      </div>
+      <%= f.text_field :price, class: "form-control", placeholder: "だいたいの金額でOK。1000円ぐらい？100万円ぐらい？" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :will_purchase_date, "購入予定日 (あとで変更できます)", class: "form-label" %>
+      <span class="badge badge-primary ml-2">任意</span>
+      <%= f.date_field :will_purchase_date, class: "form-control" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :url, "商品URL (ネットショップやメーカーWebページなど)", class: "form-label" %>
+      <span class="badge badge-primary ml-2">任意</span>
+      <%= f.text_field :url, class: "form-control", placeholder: "https://example.com" %>
+    </div>
+    <div class="form-group">
+      <%= f.label :image, "画像をアップロード", class: "form-label" %>
+      <span class="badge badge-primary ml-2">任意</span>
+      <%= f.file_field :image, class: "form-control border border-0" %>
+    </div>
+    <div class="actions">
+      <%= f.submit "完了", class: "btn btn-outline-primary" %>
+    </div>
+  <% end %>
+</div>

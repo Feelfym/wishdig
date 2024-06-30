@@ -1,0 +1,18 @@
+<div class="container mt-4" style="max-width: 90%;">
+  <h1 class="mt-5">ようこそ</h1>
+
+  <h2 class="my-3">それはどんなものですか？</h2>
+  <div class="my-5">あなたにとっての魅力はどんなところ？教えてください！</div>
+  <%= form_with model: @item, url: update_step2_tutorial_path, method: :patch do |f| %>
+    <div class="form-group">
+      <div class="d-flex align-items-center">
+        <%= f.label :description, "アイテムの紹介", class: "form-label" %>
+        <div class="badge badge-danger ml-2 mb-2" style="height: 20px;">必須</div>
+      </div>
+      <%= f.text_area :description, class: "form-control", placeholder: "魅力やほしい理由、そのアイテムの良さを語ってください" %>
+    </div>
+    <div class="actions">
+      <%= f.submit "次へ", class: "btn btn-outline-primary" %>
+    </div>
+  <% end %>
+</div>

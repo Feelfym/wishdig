@@ -18,5 +18,6 @@
       <%= items_table(@items, current_user, 'ほしいもの', 'index') %>
       <%= link_to '+ 新規アイテム', new_item_path, class: "btn btn-outline-secondary ml-4"%>
     </div>
+    <%= link_to 'チュートリアルへ', step1_tutorial_path, class: "btn btn-outline-secondary mt-4" %>
   <% end %>
 </div>

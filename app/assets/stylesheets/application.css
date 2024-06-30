@@ -13,3 +13,23 @@
  *= require_tree .
  *= require_self
  */
+
+ .item-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* フォントサイズの縮小 */
+@media (max-width: 768px) {
+  .item-name {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .item-name {
+    font-size: 1.2rem;
+  }
+}

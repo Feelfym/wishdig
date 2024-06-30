@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :check_for_tutorial
   before_action :authenticate_user!
+  before_action :go_to_tutorial, except: [:step1, :step2, :step3, :update_step1, :update_step2, :update_step3]
 
   def after_sign_in_path_for(resource)
     items_path
@@ -17,11 +17,9 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
   end
 
-  def check_for_tutorial
-    if user_signed_in? && session[:show_tutorial]
-      session.delete(:show_tutorial)
-      redirect_to tutorial_path
+  def go_to_tutorial
+    if current_user.first_sign_in?
+      redirect_to step1_tutorial_path
     end
   end
-
 end
