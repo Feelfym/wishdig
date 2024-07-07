@@ -1,15 +1,17 @@
 <div class="container mt-4" style="max-width: 90%;">
-  <h1 class="mt-5">ようこそ</h1>
-
-  <h2 class="my-3">追加の情報を入力しましょう</h2>
-  <div class="my-5">そのほかの情報を入力しましょう！</div>
+  <h2 class="mt-5">WishDigへようこそ</h1>
+  <div class="m-5">
+    <p>もう少しで完了です。</p>
+    <p>あとで変更もできますから、</p>
+    <p>気楽に入力しちゃってください。</p>
+  </div>
   <%= form_with model: @item, url: update_step3_tutorial_path, method: :patch do |f| %>
     <div class="form-group">
       <div class="d-flex align-items-center">
         <%= f.label :price, "価格", class: "form-label" %>
         <div class="badge badge-danger ml-2 mb-2" style="height: 20px;">必須</div>
       </div>
-      <%= f.text_field :price, class: "form-control", placeholder: "だいたいの金額でOK。1000円ぐらい？100万円ぐらい？" %>
+      <%= f.text_field :price, class: "form-control", placeholder: "だいたいの金額をいれておきましょう" %>
     </div>
     <div class="form-group">
       <%= f.label :will_purchase_date, "購入予定日 (あとで変更できます)", class: "form-label" %>

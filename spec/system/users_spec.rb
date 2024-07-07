@@ -21,7 +21,7 @@ RSpec.describe "ユーザー新規登録", type: :system do
 
       # 1秒待つ
       sleep 1
-      expect(current_path).to eq(items_path)
+      expect(current_path).to eq(step1_tutorial_path)
       expect(page).to have_content('サインアウト')
       expect(page).to have_no_content('ユーザー新規登録')
       expect(page).to have_no_content('サインイン')

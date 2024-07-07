@@ -14,4 +14,16 @@ module ApplicationHelper
     end
     select_tag 'selected_month', options, id: 'selected_month', class: 'form-control'
   end
+
+  def greeting
+    current_time = Time.current
+    case current_time.hour
+    when 5..10
+      'おはようございます'
+    when 11..17
+      'こんにちは'
+    else
+      'こんばんは'
+    end
+  end
 end

@@ -10,32 +10,50 @@
   </div>
 
   <div class="form-group">
-    <%= form.label :画像をアップロード, class: "form-label"%>
+    <div class="d-flex align-items-center">
+      <%= form.label :画像をアップロード, class: "form-label"%>
+      <span class="badge badge-primary ml-2 mb-2">任意</span>
+    </div>
     <%= form.file_field :image, class: "form-control border border-0" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :アイテムの名称, class: "form-label" %>
+    <div class="d-flex align-items-center">
+      <%= form.label :アイテムの名称, class: "form-label" %>
+      <div class="badge badge-danger ml-2 mb-2" style="height: 20px;">必須</div>
+    </div>
     <%= form.text_field :name, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :アイテムの説明と購入理由, class: "form-label" %>
+    <div class="d-flex align-items-center">
+      <%= form.label :アイテムの説明と購入理由, class: "form-label" %>
+      <div class="badge badge-danger ml-2 mb-2" style="height: 20px;">必須</div>
+    </div>
     <%= form.text_area :description, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :価格, class: "form-label" %>
+    <div class="d-flex align-items-center">
+      <%= form.label :価格, class: "form-label" %>
+      <div class="badge badge-danger ml-2 mb-2" style="height: 20px;">必須</div>
+    </div>
     <%= form.text_field :price, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :購入予定日, class: "form-label" %>
+    <div class="d-flex align-items-center">
+      <%= form.label :購入予定日, class: "form-label" %>
+      <span class="badge badge-primary ml-2 mb-2">任意</span>
+    </div>
     <%= form.date_field :will_purchase_date, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= form.label :商品URL, class: "form-label" %>
+    <div class="d-flex align-items-center">
+      <%= form.label :商品URL, class: "form-label" %>
+      <span class="badge badge-primary ml-2 mb-2">任意</span>
+    </div>
     <%= form.text_field :url, class: "form-control" %>
   </div>
 

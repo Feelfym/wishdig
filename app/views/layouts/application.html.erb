@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Wantsapp</title>
+    <title>WishDig</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -14,7 +14,7 @@
   <body>
     <header>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">WantsApp</a>
+        <a class="navbar-brand" href="/">WishDig</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -22,7 +22,7 @@
           <% if user_signed_in? %>
             <ul class="navbar-nav">
               <li class="nav-item mt-2 mr-4">
-                こんにちは、<%= current_user.name %>さん
+                <%= greeting %>、<%= current_user.name %>さん
               </li>
               <% unless current_user.first_sign_in? %>
                 <li class="nav-item dropdown">

@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :set_selected_year_and_month
   before_action :set_item, only: %i[edit update destroy purchase]
-  before_action :set_user, only: %i[index purchased]
+  before_action :set_user, only: %i[index purchased show]
 
   def index
     @items = filter_items(@user.items.not_purchased)
@@ -23,10 +23,8 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @user = current_user
     @item = Item.new(item_params)    
     if @item.save
-      @user.update_attribute(:first_sign_in, false)
       redirect_to root_path
     else
       respond_to do |format|

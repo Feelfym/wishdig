@@ -14,13 +14,13 @@ module ItemsHelper
   def display_heading(list_name)
     if filtered?
       if @items.present?
-        "#{@selected_year}年#{@selected_month}月の#{list_name}: #{formatted_price(@total)}"
+        "#{@selected_year}年#{@selected_month}月の#{list_name}: #{@items.count}点, #{formatted_price(@total)}"
       else
         "#{@selected_year}年#{@selected_month}月の#{list_name}はありません。"
       end
     else
       if @items.present?
-        "#{list_name}の総額 (全期間): #{formatted_price(@total)}"
+        "#{list_name} (全期間): #{@items.count}点, #{formatted_price(@total)}"
       else
         "#{@user.name}さんの#{list_name}はまだ空です。"
       end

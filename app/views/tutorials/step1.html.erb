@@ -1,9 +1,11 @@
 <!-- app/views/tutorial/step1.html.erb -->
 <div class="container mt-4" style="max-width: 90%;">
-  <h1 class="mt-5">ようこそ</h1>
-
-  <h2 class="my-3">今、ほしいものを1つ入力してみましょう。</h2>
-  <div class="my-5">思うままに入力しましょう。誰にも見られることはありません。</div>
+  <h2 class="mt-5">WishDigへようこそ</h1>
+  <div class="m-5">
+    <p>WishDigは、Wish(ほしいもの)をDig(深掘り)することで</p>
+    <p>ゆたかな買いものを目指す、ほしいもの管理アプリです。</p>
+    <p>試しに、今ほしいものを1つ入力してみましょう。</p>
+  </div>
   <%= form_with model: @item, url: update_step1_tutorial_path, method: :patch do |f| %>
     <div class="form-group mb-5">
       <div class="d-flex align-items-center">

@@ -1,6 +1,11 @@
 <div class="container mt-4">
     <%= render partial: 'items/item_card', locals: { item: @item, source: 'show' } %>
   <div class="mt-4">
+      <% if @user.first_memo? %>
+        <div class="fukidashi-02-01 mb-4">
+          <div>テーマを選んで、メモを追加してみましょう</div>
+        </div>
+      <% end %>
     <%= form_with(model: [ @item, @item.memos.build ], url: item_memos_path(@item), class: "mb-5") do |form| %>
       <%= form.collection_select(:title_id, Title.all, :id, :name, {}, {class:"btn btn-sm border border-secondary-subtle dropdown-toggle title_id-select mb-3"}) %>
       <%= form.text_area :content, class: "form-control", placeholder: "メモを入力" %>

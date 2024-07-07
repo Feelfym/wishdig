@@ -9,13 +9,9 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-  def create
-    super do |user|
-      if user.first_sign_in?
-        session[:show_tutorial] = true
-      end
-    end
-  end
+  # def create
+  #   super
+  # end
 
   # DELETE /resource/sign_out
   # def destroy

@@ -1,17 +1,22 @@
 <div class="container mt-4" style="max-width: 90%;">
   <% if @comparison.primary_item.present? && @comparison.secondary_item.present? %>
     <h2 class="my-4">比較</h2>
-    <table class="table table-sm">
-      <thead>
+
+    <div class="d-flex justify-content-between" style="width: 100%;">
+      <div style="width: 49%;">
+        <%= render partial: 'items/item_card', locals: { item: @comparison.primary_item, comparison_id: @comparison.id, source: 'comparison' } %>
+      </div>
+      <div style="width: 49%;">
+        <%= render partial: 'items/item_card', locals: { item: @comparison.secondary_item, comparison_id: @comparison.id, source: 'comparison' }%>
+      </div>
+    </div>
+    <table class="table mt-5">
+      <thead class="thead-light">
         <tr>
-          <th scope="col">比較ポイント</th>
-          <th scope="col" class="w-50 align-top" style="height: 100%; font-weight:normal;">
-            <%= render partial: 'items/item_card', locals: { item: @comparison.primary_item, comparison_id: @comparison.id, source: 'comparison' } %>
-          </th>
-          <th scope="col" class="w-50 align-top" style="height: 100%; font-weight:normal;">
-            <%= render partial: 'items/item_card', locals: { item: @comparison.secondary_item, comparison_id: @comparison.id, source: 'comparison' }%>
-          </th>
-          <th scope="col">操作</th>
+          <th scope="col" style="width: 10%;">比較ポイント</th>
+          <th scope="col" style="width: 40%;"><%= @comparison.primary_item.name %></th>
+          <th scope="col" style="width: 40%;"><%= @comparison.secondary_item.name %></th>
+          <th scope="col" style="width: 10%;">操作</th>
         </tr>
       </thead>
       <tbody>

@@ -3,8 +3,10 @@ class MemosController < ApplicationController
   before_action :set_item, only: [:create, :destroy]
 
   def create
+    @user = current_user
     @memo = @item.memos.build(memo_params)
     if @memo.save
+      @user.update_attribute(:first_memo, false)
       redirect_to item_path(@item)
     else
       @memos = @item.memos.order("created_at DESC")
