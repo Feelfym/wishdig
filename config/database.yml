@@ -23,7 +23,7 @@ development:
   username: root
   password:
   host: localhost
-  database: wantsapp_development
+  database: wishdig_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -34,7 +34,7 @@ test:
   username: root
   password:
   host: localhost
-  database: wantsapp_test
+  database: wishdig_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -58,8 +58,8 @@ test:
 #
 production:
   <<: *default
-  database: wantsapp_production
-  username: wantsapp
+  database: wishdig_production
+  username: wishdig
   adapter: postgresql
   url: <%= ENV['DATABASE_URL'] %>
-  password: <%= ENV["WANTSAPP_DATABASE_PASSWORD"] %>
+  password: <%= ENV["wishdig_DATABASE_PASSWORD"] %>
