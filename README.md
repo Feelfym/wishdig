@@ -210,31 +210,16 @@ belongs_to :comparison
 
 ## 工夫したポイント
 
+ユーザー体験を意識して、画面遷移に違和感がないように注意しました。
+たとえば、詳細画面 → 編集画面 → 確定すると詳細画面に戻り、一覧画面 → 編集 → 確定すると一覧画面に戻るといった動作です。
+自分が使っていてできるだけ違和感がないように、細かい動作を実現するための方法を調べて実装しました。
+また、できるだけ色数を少なくシンプルなデザインに抑えるようにしました。
+Bootstrap はデフォルトでは色がついた濃いめのボタンができますが、ボタンをアウトラインだけのデザインにするなど、基本的にさっぱりしたデザインにするよう心がけました。
+
+メインの機能である欲しいものの掘り下げについては、あえてユーザが自分でテーマを決めるのではなく、デフォルトでセットされているテーマにそって書くことで、一定の縛りを設けて思考を深めることを意識しました。自由ではないメモだからこそ、深掘りする助けになると考えました。
+
 ## 改善点
 
 ## 制作時間
 
 およそ 2 週間（50 時間）
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-- Ruby version
-
-- System dependencies
-
-- Configuration
-
-- Database creation
-
-- Database initialization
-
-- How to run the test suite
-
-- Services (job queues, cache servers, search engines, etc.)
-
-- Deployment instructions
-
-- ...
