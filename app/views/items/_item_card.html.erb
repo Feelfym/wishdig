@@ -12,7 +12,7 @@
     </div>
   </div>
   <% if item.image.attached? %>
-    <%= image_tag item.image, class: "img-fluid mx-auto d-block", style: "max-width: 500px; height: 200px;" %>
+    <%= image_tag item.image, class: "mt-4 img-fluid mx-auto d-block", style: "max-width: 500px; height: 200px;" %>
   <% else %>
     <%= image_tag "noimage.jpg", class: "img-fluid mx-auto d-block", style: "max-width: 300px; height: 200px" %>
   <% end %>
