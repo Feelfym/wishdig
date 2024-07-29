@@ -9,7 +9,7 @@ WishDig
 
 ## URL
 
-https://wantsapp-40422.onrender.com/
+https://wish-dig.onrender.com
 
 ## テスト用アカウント
 
