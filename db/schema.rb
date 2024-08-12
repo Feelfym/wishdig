@@ -58,7 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_12_113000) do
     t.integer "user_id"
     t.boolean "purchased_flag", default: false
     t.date "purchased_date"
-    t.integer "score"
+    t.integer "score", default: 0
   end
 
   create_table "memos", charset: "utf8", force: :cascade do |t|

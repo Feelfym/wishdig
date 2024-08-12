@@ -1,5 +1,5 @@
 class AddScoreToItems < ActiveRecord::Migration[7.0]
   def change
-    add_column :items, :score, :integer
+    add_column :items, :score, :integer, default: 0
   end
 end
