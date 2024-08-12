@@ -24,6 +24,6 @@
       <%= link_to "商品ページ", item.url, target: "_blank", class: "btn btn-sm btn-outline-info item-link mr-3" %>
     <% end %>
     <%= purchase_link(item) %>
-    <%= item.score %>
+    <p class="card-text mt-4">スコア：<%= item.score %></p>
   </div>
 </div>
