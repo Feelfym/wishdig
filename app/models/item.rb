@@ -8,6 +8,7 @@ class Item < ApplicationRecord
   validates :url, format: { with: /\A#{URI::regexp(%w(http https))}\z/, message: "must be a valid URL" }, allow_blank: true
   validates :purchased_flag, inclusion: { in: [true, false] }
   validates :purchased_date, format: { with: /\d{4}-\d{2}-\d{2}/, message: "must be in the format YYYY-MM-DD" }, allow_blank: true
+  validates :score, presence: true
 
   # アソシエーション
   belongs_to :user
